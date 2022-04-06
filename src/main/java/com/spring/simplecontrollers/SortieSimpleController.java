@@ -58,7 +58,7 @@ public class SortieSimpleController {
 	
 	@GetMapping(value = "edit/{id}")
 	public String editSortie(@PathVariable int id, Model m) {
-		Sortie s = sortieService.findById(id).get();
+		Sortie s = sortieService.findById(id);
 		m.addAttribute("sortie", s);
 		return "sortieedit";
 	}

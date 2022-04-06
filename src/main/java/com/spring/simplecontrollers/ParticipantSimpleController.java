@@ -37,16 +37,16 @@ public class ParticipantSimpleController {
 	}
 	
 	@PostMapping("add/{ids}")
-	public String addParticipant(@PathVariable String ids, @Valid @RequestBody @ModelAttribute(name = "participant") Participant p, BindingResult result, Model m, Pageable pageable) {
+	public String addParticipant(@PathVariable int ids, @Valid @RequestBody @ModelAttribute(name = "participant") Participant p, BindingResult result, Model m, Pageable pageable) {
 		if (result.hasErrors()){
 			m.addAttribute("participants", participantService.findAll(pageable));
-			System.out.println("erreur");
+
 			return "participant";
 		}
-		participantService.save(p);
-		p.setSortie(sortieService.findById(Integer.parseInt(ids)).get());
 		
-		System.out.println("OK");
+		participantService.save(p);
+		p.setSortie(sortieService.findById(ids));
+		
 		return "redirect:/participant";
 	}		
 	

@@ -85,10 +85,7 @@
       
       
       </table>
-      
-          
-    
-    
+ 
     </div>
      <div class="col">
      
@@ -124,19 +121,16 @@
       
       <div class="input-group mb-3">
       	<span class="input-group-text">sortie</span>
-      	<input class="form-control" type="text" th:field="*{sortie}" name="ids">      	
-      	<div class="alert alert-warning" th:if="${#fields.hasErrors('sortie')}" th:errors="*{sortie}"></div>
-<!--       	<select class="form-control" th:field="*{admin}" name="admin"> -->
-
-<!--       			<option th:value="'guide1'" th:text="'guide 1'"></option> -->
-<!--       			<option th:value="'guide2'" th:text="'guide 2'"></option> -->
-<!--       			<option th:value="'organisateur1'" th:text="'organisateur 1'"></option> -->
-<!--        	</select>     			 -->
-<!--  <select class="form-control" th:field="*{admin}" name="admin">     			 -->
+<!--       	<input class="form-control" type="text" th:field="*{sortie}" name="ids">      	 -->
+<!--       	<div class="alert alert-warning" th:if="${#fields.hasErrors('sortie')}" th:errors="*{sortie}"></div> -->
+<select class="form-control" th:field="*{sortie}" name="sortie">
 <!--       		<option th:each="admin: ${admins}" -->
 <!--       				th:value="${admin.nomComplet}" -->
 <!--       				th:text="#{${'selected.label.' + admin.nomComplet}}"/> -->
-<!-- </select> -->
+      			<option th:value="'2'" th:text="'Alpes'"></option>
+      			<option th:value="'8'" th:text="'Méditerranée'"></option>
+      		
+      	</select>
 	  </div>
       
       <button class="btn btn-outline-dark" type="submit">ajouter</button>

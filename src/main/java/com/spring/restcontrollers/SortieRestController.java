@@ -2,8 +2,6 @@ package com.spring.restcontrollers;
 
 
 import java.util.List;
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +37,7 @@ public Page<Sortie> getSorties(Pageable pageable)
 	 return sortieService.findAll(pageable);
 }
 @GetMapping("{id}")
-public Optional<Sortie> findSorties(@PathVariable int id)
+public Sortie findSorties(@PathVariable int id)
 {
 	 return sortieService.findById(id);
 }

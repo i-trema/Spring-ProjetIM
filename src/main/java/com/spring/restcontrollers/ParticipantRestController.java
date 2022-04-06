@@ -57,7 +57,7 @@ public class ParticipantRestController {
 	@PostMapping("/{id}")
 	public Participant addParticipant(@PathVariable int id, @Valid @RequestBody Participant participant) 
 	{
-		participant.setSortie(sortieService.findById(id).get());
+		participant.setSortie(sortieService.findById(id));
 		return participantService.save(participant);	
 
 	}

@@ -1,8 +1,6 @@
 package com.spring.services;
 
 import java.util.List;
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +70,7 @@ AdminRepo adminRepo;
 		
 	}
 
-	public Optional<Sortie> findById(int id) {
+	public Sortie findById(int id) {
 		// TODO Auto-generated method stub
 		return sortieRepo.findById(id);
 	}

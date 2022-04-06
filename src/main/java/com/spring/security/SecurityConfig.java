@@ -60,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/recommandation/**").hasRole("guide");
 		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/recommandation/**").hasRole("guide");
 		http.authorizeRequests().antMatchers("/participant/**").hasRole("guide");
+		http.authorizeRequests().antMatchers("/participant/**").hasRole("organisateur");
 		
 		
 		http.authorizeRequests().antMatchers("/api/**").hasRole("organisateur");

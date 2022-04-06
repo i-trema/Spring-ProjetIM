@@ -83,9 +83,10 @@ SortieRepo sortieRepo;
 
 	@Override
 	public void assignParticipant(int ids, Participant participant) {
-		Sortie sortie = sortieRepo.findById(ids).orElseThrow();
-		participant.setSortie(sortie);
+		Sortie sortie = sortieRepo.findById(ids);
 		participantRepo.save(participant);
+		participant.setSortie(sortie);
+		
 	}
 
 }

@@ -16,6 +16,6 @@ List<Sortie> findByDepart(String depart);
 List<Sortie> findByRetour(String retour);
 List<Sortie> findByAdmin(String responsable);
 List<Sortie> findByDescriptionContaining(String description);
-
+Sortie findById(int id);
 
 }
