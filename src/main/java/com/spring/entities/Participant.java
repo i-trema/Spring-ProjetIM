@@ -39,7 +39,7 @@ public class Participant implements Serializable{
 	private int age;
 	@ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_sortie", referencedColumnName = "id")
-	private Sortie sortie;
+	Sortie sortie;
 	
 	
 	

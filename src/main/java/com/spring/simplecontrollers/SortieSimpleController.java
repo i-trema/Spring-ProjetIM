@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -30,27 +31,22 @@ public class SortieSimpleController {
 	public String getSorties(Model m, Pageable pageable) {
 		Sortie s = new Sortie();
 		m.addAttribute("sorties", sortieService.findAll(pageable));
-		
-		
-		m.addAttribute("sortie", s);
-		
-//		if (s.getAdmin()!=null) {
-//			m.addAttribute("responsable", s.getAdmin().getNomComplet());
-//		}else {
-//			m.addAttribute("responsable", "null");
-//		} 
+		m.addAttribute("sortie", s); 
 		
 		return "sortie";
 	}
 	
-	@PostMapping("add")
-	public String addSortie(@Valid @ModelAttribute(name = "sortie") Sortie s, BindingResult result, Model m, Pageable pageable) {
+	@PostMapping("add/{login}")
+	public String addSortie(@PathVariable String login, @Valid @RequestBody @ModelAttribute(name = "sortie") Sortie s, BindingResult result, Model m, Pageable pageable) {
 		if (result.hasErrors()){
 			m.addAttribute("sorties", sortieService.findAll(pageable));
+			System.out.println("erreur");
 			return "sortie";
 		}
-//		s.setAdmin(accountServiceImplement.findByNomComplet(nomComplet));
-		sortieService.save(s);	
+		sortieService.save(s);
+		s.setAdmin(accountServiceImplement.findByLogin(login));
+		
+		System.out.println("OK");
 		return "redirect:/sortie";
 	}		
 	

@@ -1,10 +1,154 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
+<meta charset="utf8">
+<title>Sortie</title>
+</head>
+<header> 
+<ul class="nav nav-tabs">
+
+  <li class="nav-item">
+    <a class="nav-link" href="/./sortie">Sorties</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="/./participant">Participants</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/./evaluation">Evaluations</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/./recommandation">Recommandations</a>
+  </li>
+  <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Liens Restful</a>
+      <ul class="dropdown-menu">
+        <li><a class="nav-link" href="/./api/sortie">Sorties Restful</a></li>
+        <li><a class="nav-link" href="/./api/participant">Participants Restful</a></li>
+        <li><a class="nav-link" href="/./api/evaluation">Evaluations Restful</a></li>
+        <li><a class="nav-link" href="/./api/recommandation">Recommandations Restful</a></li>
+      </ul>
+    </li>
+<!--   <li class="nav-item"> -->
+<!--     <a class="nav-link" href="/./api/sortie">Sorties Restful</a> -->
+<!--   </li> -->
+<!--   <li class="nav-item"> -->
+<!--     <a class="nav-link" href="/./api/participant">Participants Restful</a> -->
+<!--   </li> -->
+<!--   <li class="nav-item"> -->
+<!--     <a class="nav-link" href="/./api/evaluation">Evaluations Restful</a> -->
+<!--   </li> -->
+<!--   <li class="nav-item"> -->
+<!--     <a class="nav-link" href="/./api/recommandation">Recommandations Restful</a> -->
+<!--   </li> -->
+  <li class="nav-item">
+    <a class="btn btn-outline-success" href="/./login">Changer d'utilisateur</a>
+  </li>
+ 
+</ul>
+
+
+</header>
+
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-0.2"> 
+    </div>
+   
+    <div class="col">
+    
+    <h3 align="center" >Liste des participants</h3>
+    
+    <table class="table table-bordered">
+      <thead>
+      <tr><th><a href="?sort=id">id</a></th><th><a href="?sort=nom">nom</a></th><th><a href="?sort=prenom">prenom</a></th><th><a href="?sort=email">email</a></th><th><a href="?sort=telephone">téléphone</a></th><th><a href="?sort=age">âge</a></th><th><a href="?sort=sortie">sortie</a></th><th></th><th></th></tr>
+      </thead>
+      <tbody>
+      <tr th:each = "participant : ${participants}">
+      	<td th:text="${participant.id}"></td>
+      	<td th:text="${participant.nom}"></td>
+      	<td th:text="${participant.prenom}"></td>
+      	<td th:text="${participant.email}"></td>
+      	<td th:text="${participant.telephone}"></td>
+      	<td th:text="${participant.age}"></td>
+      	<td th:text="${participant.sortie.titre}"></td>
+      	
+      	
+      	<td> <a class="btn btn-outline-danger" th:href="@{/participant/delete/{id}(id=${participant.id})}">Supprimer</a></td>
+<!--       	<td> <a class="btn btn-outline-warning" th:href="@{/participant/edit/{id}(id=${participant.id})}">Modifier</a></td> -->
+      	
+      	</tr>
+      </tbody>
+      
+      
+      
+      </table>
+      
+          
+    
+    
+    </div>
+     <div class="col">
+     
+     <form th:action="@{/participant/add/{ids}}" th:object="${participant}" method="post">
+      
+      <div class="input-group mb-3">
+      	<span class="input-group-text">nom</span>
+      	<input class="form-control" type="text" th:field="*{nom}" name="nom">
+      <div class="alert alert-warning" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></div>
+      </div>
+      <div class="input-group mb-3">
+      	<span class="input-group-text">prénom</span>
+      	<input class="form-control" type="text" th:field="*{prenom}" name="prenom">
+      <div class="alert alert-warning" th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}"></div>
+      </div>
+      <div class="input-group mb-3">
+      	<span class="input-group-text">email</span>
+      	<input class="form-control" type="email" th:field="*{email}" name="email">
+      	<div class="alert alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+      </div>
+      <div class="input-group mb-3">
+      	<span class="input-group-text">téléphone</span>
+      	<input class="form-control" type="text" th:field="*{telephone}" name="telephone">
+      	<div class="alert alert-warning" th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}"></div>
+
+      </div>
+      
+      <div class="input-group mb-3">
+      	<span class="input-group-text">âge</span>
+      	<input class="form-control" type="number" th:field="*{age}" name="age">
+      	<div class="alert alert-warning" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+      </div>
+      
+      <div class="input-group mb-3">
+      	<span class="input-group-text">sortie</span>
+      	<input class="form-control" type="text" th:field="*{sortie}" name="ids">      	
+      	<div class="alert alert-warning" th:if="${#fields.hasErrors('sortie')}" th:errors="*{sortie}"></div>
+<!--       	<select class="form-control" th:field="*{admin}" name="admin"> -->
+
+<!--       			<option th:value="'guide1'" th:text="'guide 1'"></option> -->
+<!--       			<option th:value="'guide2'" th:text="'guide 2'"></option> -->
+<!--       			<option th:value="'organisateur1'" th:text="'organisateur 1'"></option> -->
+<!--        	</select>     			 -->
+<!--  <select class="form-control" th:field="*{admin}" name="admin">     			 -->
+<!--       		<option th:each="admin: ${admins}" -->
+<!--       				th:value="${admin.nomComplet}" -->
+<!--       				th:text="#{${'selected.label.' + admin.nomComplet}}"/> -->
+<!-- </select> -->
+	  </div>
+      
+      <button class="btn btn-outline-dark" type="submit">ajouter</button>
+      
+      </form>
+     
+    </div>
+    <div class="col-0.2"> 
+    </div>
+  </div>
+</div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
 </html>

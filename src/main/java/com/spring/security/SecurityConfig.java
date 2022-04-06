@@ -48,13 +48,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/recommandation/**").permitAll();
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/sortie/**").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/evaluation/**").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/recommandation/**").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/sortie/**").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/evaluation/**").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/evaluation/**").permitAll();
 		
-		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/recommandation/**").hasRole("guide");
+		
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/recommandation/**").hasRole("guide");
 		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/recommandation/**").hasRole("guide");
-
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/recommandation/**").hasRole("guide");
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/recommandation/**").hasRole("guide");
+		http.authorizeRequests().antMatchers("/participant/**").hasRole("guide");
+		
 		
 		http.authorizeRequests().antMatchers("/api/**").hasRole("organisateur");
+		http.authorizeRequests().antMatchers("/**").hasRole("organisateur");
+		
 		
 		
 		

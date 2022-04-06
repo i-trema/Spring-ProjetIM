@@ -16,11 +16,32 @@
     <a class="nav-link" href="/./participant">Participants</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/./api/sortie">Sorties Restful</a>
+    <a class="nav-link" href="/./evaluation">Evaluations</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/./api/participant">Participants Restful</a>
+    <a class="nav-link" href="/./recommandation">Recommandations</a>
   </li>
+  <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Liens Restful</a>
+      <ul class="dropdown-menu">
+        <li><a class="nav-link" href="/./api/sortie">Sorties Restful</a></li>
+        <li><a class="nav-link" href="/./api/participant">Participants Restful</a></li>
+        <li><a class="nav-link" href="/./api/evaluation">Evaluations Restful</a></li>
+        <li><a class="nav-link" href="/./api/recommandation">Recommandations Restful</a></li>
+      </ul>
+    </li>
+<!--   <li class="nav-item"> -->
+<!--     <a class="nav-link" href="/./api/sortie">Sorties Restful</a> -->
+<!--   </li> -->
+<!--   <li class="nav-item"> -->
+<!--     <a class="nav-link" href="/./api/participant">Participants Restful</a> -->
+<!--   </li> -->
+<!--   <li class="nav-item"> -->
+<!--     <a class="nav-link" href="/./api/evaluation">Evaluations Restful</a> -->
+<!--   </li> -->
+<!--   <li class="nav-item"> -->
+<!--     <a class="nav-link" href="/./api/recommandation">Recommandations Restful</a> -->
+<!--   </li> -->
   <li class="nav-item">
     <a class="btn btn-outline-success" href="/./login">Changer d'utilisateur</a>
   </li>
@@ -29,7 +50,6 @@
 
 
 </header>
-
 <body>
 <div class="container">
   <div class="row">
@@ -42,7 +62,7 @@
     
     <table class="table table-bordered">
       <thead>
-      <tr><th><a href="?sort=id">id</a></th><th><a href="?sort=titre">titre</a></th><th><a href="?sort=destination">destination</a></th><th><a href="?sort=depart">départ</a></th><th><a href="?sort=retour">retour</a></th><th><a href="?sort=admin">responsable</a></th><th><a href="?sort=description">description</a></th><th><a href="?sort=prix">prix</a></th><th></th><th></th></tr>
+      <tr><th><a href="?sort=id">id</a></th><th><a href="?sort=titre">titre</a></th><th><a href="?sort=destination">destination</a></th><th><a href="?sort=depart">départ</a></th><th><a href="?sort=retour">retour</a></th><th><a href="?sort=admin.nomComplet">responsable</a></th><th><a href="?sort=description">description</a></th><th><a href="?sort=prix">prix</a></th><th></th><th></th></tr>
       </thead>
       <tbody>
       <tr th:each = "sortie : ${sorties}">
@@ -72,7 +92,7 @@
     </div>
      <div class="col">
      
-     <form th:action="@{/sortie/add/}" th:object="${sortie}" method="post">
+     <form th:action="@{/sortie/add/{login}}" th:object="${sortie}" method="post">
       
       <div class="input-group mb-3">
       	<span class="input-group-text">titre</span>
@@ -97,8 +117,15 @@
       </div>
       <div class="input-group mb-3">
       	<span class="input-group-text">responsable</span>
-      	<input class="form-control" type="text" th:field="*{admin}" name="admin">
-      	<div class="alert alert-warning" th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}"></div>
+      	<select class="form-control" th:field="*{admin}" name="admin">
+<!--       		<option th:each="admin: ${admins}" -->
+<!--       				th:value="${admin.nomComplet}" -->
+<!--       				th:text="#{${'selected.label.' + admin.nomComplet}}"/> -->
+      			<option th:value="'guide1'" th:text="'guide 1'"></option>
+      			<option th:value="'guide2'" th:text="'guide 2'"></option>
+      			<option th:value="'organisateur1'" th:text="'organisateur 1'"></option>
+      	</select>
+<!--       	<div class="alert alert-warning" th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}"></div> -->
 
       </div>
       <div class="input-group mb-3">

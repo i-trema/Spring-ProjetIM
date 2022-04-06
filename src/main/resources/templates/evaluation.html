@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<meta charset="utf8">
+<title>Evaluation</title>
+</head>
+<header> 
+<ul class="nav nav-tabs">
+
+  <li class="nav-item">
+    <a class="nav-link" href="/./sortie">Sorties</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/./participant">Participants</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="/./evaluation">Evaluations</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/./recommandation">Recommandations</a>
+  </li>
+  <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Liens Restful</a>
+      <ul class="dropdown-menu">
+        <li><a class="nav-link" href="/./api/sortie">Sorties Restful</a></li>
+        <li><a class="nav-link" href="/./api/participant">Participants Restful</a></li>
+        <li><a class="nav-link" href="/./api/evaluation">Evaluations Restful</a></li>
+        <li><a class="nav-link" href="/./api/recommandation">Recommandations Restful</a></li>
+      </ul>
+    </li>
+<!--   <li class="nav-item"> -->
+<!--     <a class="nav-link" href="/./api/sortie">Sorties Restful</a> -->
+<!--   </li> -->
+<!--   <li class="nav-item"> -->
+<!--     <a class="nav-link" href="/./api/participant">Participants Restful</a> -->
+<!--   </li> -->
+<!--   <li class="nav-item"> -->
+<!--     <a class="nav-link" href="/./api/evaluation">Evaluations Restful</a> -->
+<!--   </li> -->
+<!--   <li class="nav-item"> -->
+<!--     <a class="nav-link" href="/./api/recommandation">Recommandations Restful</a> -->
+<!--   </li> -->
+  <li class="nav-item">
+    <a class="btn btn-outline-success" href="/./login">Changer d'utilisateur</a>
+  </li>
+ 
+</ul>
+
+
+</header>
+
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-0.2"> 
+    </div>
+   
+    <div class="col">
+    
+    <h3 align="center" >Liste des évaluations</h3>
+    
+    <table class="table table-bordered">
+      <thead>
+      <tr><th><a href="?sort=id">id</a></th><th><a href="?sort=titre">titre</a></th><th><a href="?sort=note">note</a></th><th><a href="?sort=remarque">remarque</a></th><th><a href="?sort=nom">nom</a></th><th></th><th></th></tr>
+      </thead>
+      <tbody>
+      <tr th:each = "evaluation : ${evaluations}">
+      	<td th:text="${evaluation.id}"></td>
+      	<td th:text="${evaluation.titre}"></td>      	
+      	<td th:text="${evaluation.note}"></td>
+      	<td th:text="${evaluation.remarque}"></td>
+      	<td th:text="${evaluation.nom}"></td>     	
+      	
+      	
+      	<td> <a class="btn btn-outline-danger" th:href="@{/evaluation/delete/{id}(id=${evaluation.id})}">Supprimer</a></td>
+<!--       	<td> <a class="btn btn-outline-warning" th:href="@{/evaluation/edit/{id}(id=${evaluation.id})}">Modifier</a></td> -->
+      	
+      	</tr>
+      </tbody>
+      
+      
+      
+      </table>
+      
+          
+    
+    
+    </div>
+     <div class="col">
+     
+     <form th:action="@{/evaluation/add}" th:object="${evaluation}" method="post">
+      
+      <div class="input-group mb-3">
+      	<span class="input-group-text">titre</span>
+      	<input class="form-control" type="text" th:field="*{titre}" name="titre">
+      <div class="alert alert-warning" th:if="${#fields.hasErrors('titre')}" th:errors="*{titre}"></div>
+      </div>
+      <div class="input-group mb-3">
+      	<span class="input-group-text">note</span>
+      	<input class="form-control" type="number" th:field="*{note}" name="note">
+      <div class="alert alert-warning" th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></div>
+      </div>
+      <div class="input-group mb-3">
+      	<span class="input-group-text">remarque</span>
+      	<textarea class="form-control" th:field="*{remarque}" name="remarque"></textarea>
+      	<div class="alert alert-warning" th:if="${#fields.hasErrors('remarque')}" th:errors="*{remarque}"></div>
+      </div>
+      <div class="input-group mb-3">
+      	<span class="input-group-text">nom</span>
+      	<input class="form-control" type="text" th:field="*{nom}" name="nom">
+      	<div class="alert alert-warning" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></div>
+
+      </div>
+      
+      
+      <button class="btn btn-outline-dark" type="submit">ajouter</button>
+      
+      </form>
+     
+    </div>
+    <div class="col-0.2"> 
+    </div>
+  </div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+</html>

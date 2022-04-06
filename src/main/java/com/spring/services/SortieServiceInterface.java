@@ -18,7 +18,7 @@ public interface SortieServiceInterface {
 	List<Sortie> findByAdmin(String responsable);
 	List<Sortie> findByDescriptionContaining(String description);
 	Sortie save(Sortie sortie);
-	void assignResponsable(String nomComplet, Sortie sortie);
+	public void assignResponsable(String nomComplet, Sortie sortie);
 	void deleteById(int id);
 	
 }
