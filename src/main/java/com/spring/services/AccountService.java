@@ -11,9 +11,11 @@ public interface AccountService {
  public Role saveRole(Role role);
  public void addRoleToAdmin(String login, String roleName);
  public Admin findByLogin(String login);
+ public Admin findByNomComplet(String nomComplet);
  public Role findByRoleName(String roleName);
  public Page<Role> findAllRoles(Pageable pageable);
  public Page<Admin> findAllAdmins(Pageable pageable);
  public void deleteRole(String roleName);
  public void deleteAdmin(String login);
+ 
 }

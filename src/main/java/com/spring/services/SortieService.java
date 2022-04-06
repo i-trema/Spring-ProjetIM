@@ -10,12 +10,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.spring.entities.Admin;
 import com.spring.entities.Sortie;
+import com.spring.repositories.AdminRepo;
 import com.spring.repositories.SortieRepo;
 @Service
 public class SortieService implements SortieServiceInterface{
 @Autowired
 SortieRepo sortieRepo;
+@Autowired
+AdminRepo adminRepo;
 
 	@Override
 	public Page<Sortie> findAll(Pageable pageable) {
@@ -60,7 +64,6 @@ SortieRepo sortieRepo;
 	}
 
 	public Sortie save(@Valid Sortie sortie) {
-		// TODO Auto-generated method stub
 		return sortieRepo.save(sortie);
 	}
 
@@ -78,6 +81,13 @@ SortieRepo sortieRepo;
 	public List<Sortie> findAll() {
 		// TODO Auto-generated method stub
 		return sortieRepo.findAll();
+	}
+
+	@Override
+	public void assignResponsable(String nomComplet, Sortie sortie) {
+		Admin admin=adminRepo.findByNomComplet(nomComplet);
+		sortie.setAdmin(admin);	
+		save(sortie);
 	}
 
 }

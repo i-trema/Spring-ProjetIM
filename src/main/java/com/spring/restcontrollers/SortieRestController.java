@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.entities.Sortie;
+import com.spring.services.AccountServiceImplement;
 import com.spring.services.SortieService;
 
 
@@ -29,6 +30,8 @@ import com.spring.services.SortieService;
 public class SortieRestController {
 @Autowired
 SortieService sortieService;
+@Autowired
+AccountServiceImplement accountServiceImplement;
 	
 @GetMapping("")
 public Page<Sortie> getSorties(Pageable pageable)
@@ -71,10 +74,12 @@ public List<Sortie> findSortiesByDescription(@PathVariable String description)
 	 return sortieService.findByDescriptionContaining(description);
 }
 
-@PostMapping("")
-public Sortie addSortie(@Valid @RequestBody Sortie sortie) 
+@PostMapping("/{nomComplet}")
+public Sortie addSortie(@PathVariable String nomComplet, @Valid @RequestBody Sortie sortie) 
 {
-return sortieService.save(sortie);	
+	sortie.setAdmin(accountServiceImplement.findByNomComplet(nomComplet));
+	return sortieService.save(sortie);	
+
 
 }
 @DeleteMapping("{id}")

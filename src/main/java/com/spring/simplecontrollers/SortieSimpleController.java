@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.spring.entities.Sortie;
+import com.spring.services.AccountServiceImplement;
 import com.spring.services.SortieService;
 
 @Controller
@@ -22,12 +23,23 @@ import com.spring.services.SortieService;
 public class SortieSimpleController {
 	@Autowired
 	SortieService sortieService;
+	@Autowired
+	AccountServiceImplement accountServiceImplement;
 	
 	@GetMapping("")
 	public String getSorties(Model m, Pageable pageable) {
 		Sortie s = new Sortie();
 		m.addAttribute("sorties", sortieService.findAll(pageable));
+		
+		
 		m.addAttribute("sortie", s);
+		
+//		if (s.getAdmin()!=null) {
+//			m.addAttribute("responsable", s.getAdmin().getNomComplet());
+//		}else {
+//			m.addAttribute("responsable", "null");
+//		} 
+		
 		return "sortie";
 	}
 	
@@ -37,6 +49,7 @@ public class SortieSimpleController {
 			m.addAttribute("sorties", sortieService.findAll(pageable));
 			return "sortie";
 		}
+//		s.setAdmin(accountServiceImplement.findByNomComplet(nomComplet));
 		sortieService.save(s);	
 		return "redirect:/sortie";
 	}		

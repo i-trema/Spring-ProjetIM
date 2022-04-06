@@ -6,13 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.spring.calcul.Calcul;
-import com.spring.entities.Admin;
-import com.spring.entities.Evaluation;
-import com.spring.entities.Participant;
-import com.spring.entities.Recommandation;
-import com.spring.entities.Role;
-import com.spring.entities.Sortie;
-
 import com.spring.services.AccountServiceImplement;
 import com.spring.services.EvaluationService;
 import com.spring.services.ParticipantService;

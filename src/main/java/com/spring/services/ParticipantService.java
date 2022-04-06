@@ -11,12 +11,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.spring.entities.Participant;
+import com.spring.entities.Sortie;
 import com.spring.repositories.ParticipantRepo;
+import com.spring.repositories.SortieRepo;
 
 @Service
 public class ParticipantService implements ParticipantServiceInterface{
 @Autowired
 ParticipantRepo participantRepo;
+@Autowired
+SortieRepo sortieRepo;
 
 
 	@Override
@@ -75,6 +79,13 @@ ParticipantRepo participantRepo;
 	public List<Participant> findAll() {
 		// TODO Auto-generated method stub
 		return participantRepo.findAll();
+	}
+
+	@Override
+	public void assignParticipant(int ids, Participant participant) {
+		Sortie sortie = sortieRepo.findById(ids).orElseThrow();
+		participant.setSortie(sortie);
+		participantRepo.save(participant);
 	}
 
 }

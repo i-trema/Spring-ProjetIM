@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
 import com.spring.entities.Sortie;
 
 
@@ -17,6 +18,7 @@ public interface SortieServiceInterface {
 	List<Sortie> findByAdmin(String responsable);
 	List<Sortie> findByDescriptionContaining(String description);
 	Sortie save(Sortie sortie);
+	void assignResponsable(String nomComplet, Sortie sortie);
 	void deleteById(int id);
 	
 }

@@ -86,6 +86,12 @@ public class AccountServiceImplement implements AccountService{
 		return roleRepo.findByRoleName(roleName);
 	}
 
+	@Override
+	public Admin findByNomComplet(String nomComplet) {
+		// TODO Auto-generated method stub
+		return adminRepo.findByNomComplet(nomComplet);
+	}
+
 	
 
 }

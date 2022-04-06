@@ -18,12 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.entities.Participant;
 import com.spring.services.ParticipantService;
+import com.spring.services.SortieService;
 
 @RestController
 @RequestMapping("api/participant")
 public class ParticipantRestController {
 	@Autowired
 	ParticipantService participantService;
+	@Autowired
+	SortieService sortieService;
 		
 	@GetMapping("")
 	public Page<Participant> getParticipants(Pageable pageable)
@@ -51,10 +54,11 @@ public class ParticipantRestController {
 		 return participantService.findByEmail(email);
 	}
 	
-	@PostMapping("")
-	public Participant addParticipant(@Valid @RequestBody Participant participant) 
+	@PostMapping("/{id}")
+	public Participant addParticipant(@PathVariable int id, @Valid @RequestBody Participant participant) 
 	{
-	return participantService.save(participant);	
+		participant.setSortie(sortieService.findById(id).get());
+		return participantService.save(participant);	
 
 	}
 	@DeleteMapping("{id}")

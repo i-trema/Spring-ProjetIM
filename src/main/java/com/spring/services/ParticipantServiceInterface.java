@@ -19,4 +19,5 @@ public interface ParticipantServiceInterface {
 	List<Participant> findByNomOrPrenom(String nom, String prenom);
 	void deleteById(int id);
 	Participant save(Participant participant);
+	void assignParticipant(int ids, Participant participant);
 }
