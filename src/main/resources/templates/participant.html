@@ -89,7 +89,7 @@
     </div>
      <div class="col">
      
-     <form th:action="@{/participant/add/{ids}}" th:object="${participant}" method="post">
+     <form th:action="@{/participant/add/{sortie}}" th:object="${participant}" method="post">
       
       <div class="input-group mb-3">
       	<span class="input-group-text">nom</span>
@@ -121,16 +121,12 @@
       
       <div class="input-group mb-3">
       	<span class="input-group-text">sortie</span>
-<!--       	<input class="form-control" type="text" th:field="*{sortie}" name="ids">      	 -->
-<!--       	<div class="alert alert-warning" th:if="${#fields.hasErrors('sortie')}" th:errors="*{sortie}"></div> -->
-<select class="form-control" th:field="*{sortie}" name="sortie">
-<!--       		<option th:each="admin: ${admins}" -->
-<!--       				th:value="${admin.nomComplet}" -->
-<!--       				th:text="#{${'selected.label.' + admin.nomComplet}}"/> -->
-      			<option th:value="'2'" th:text="'Alpes'"></option>
-      			<option th:value="'8'" th:text="'Méditerranée'"></option>
-      		
+    <select class="form-control" th:name="idSortie">
+      		<option th:each="sortie: ${sorties}"
+      				th:value="${sortie.id}"
+      				th:text="${sortie.titre}"/>
       	</select>
+
 	  </div>
       
       <button class="btn btn-outline-dark" type="submit">ajouter</button>

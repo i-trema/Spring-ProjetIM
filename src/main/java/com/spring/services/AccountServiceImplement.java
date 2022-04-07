@@ -1,5 +1,7 @@
 package com.spring.services;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import com.spring.entities.Admin;
 import com.spring.entities.Role;
 import com.spring.repositories.AdminRepo;
 import com.spring.repositories.RoleRepo;
+
 
 @Service
 @Transactional
@@ -90,6 +93,11 @@ public class AccountServiceImplement implements AccountService{
 	public Admin findByNomComplet(String nomComplet) {
 		// TODO Auto-generated method stub
 		return adminRepo.findByNomComplet(nomComplet);
+	}
+
+	public List<Admin> findAllAdminsList() {
+		// TODO Auto-generated method stub
+		return adminRepo.findAll();
 	}
 
 	

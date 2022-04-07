@@ -1,5 +1,7 @@
 package com.spring.simplecontrollers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.spring.entities.Admin;
 import com.spring.entities.Sortie;
 import com.spring.services.AccountServiceImplement;
 import com.spring.services.SortieService;
@@ -29,22 +33,32 @@ public class SortieSimpleController {
 	
 	@GetMapping("")
 	public String getSorties(Model m, Pageable pageable) {
+		
 		Sortie s = new Sortie();
+		List<Admin> admins=accountServiceImplement.findAllAdminsList();
+		m.addAttribute("admins", admins);
 		m.addAttribute("sorties", sortieService.findAll(pageable));
 		m.addAttribute("sortie", s); 
-		
+		String nomAdmin = "";
+		m.addAttribute("nomAdmin", nomAdmin);
 		return "sortie";
 	}
 	
-	@PostMapping("add/{login}")
-	public String addSortie(@PathVariable String login, @Valid @RequestBody @ModelAttribute(name = "sortie") Sortie s, BindingResult result, Model m, Pageable pageable) {
+	@PostMapping("add")
+	public String addSortie(@RequestParam String nomAdmin, @Valid @RequestBody @ModelAttribute(name = "sortie") Sortie s, BindingResult result, Model m, Pageable pageable) {
 		if (result.hasErrors()){
 			m.addAttribute("sorties", sortieService.findAll(pageable));
+			List<Admin> admins=accountServiceImplement.findAllAdminsList();
+			m.addAttribute("admins", admins);
+			
+			
 			System.out.println("erreur");
 			return "sortie";
 		}
+		
+		Admin admin=accountServiceImplement.findByNomComplet(nomAdmin);
+		s.setAdmin(admin);
 		sortieService.save(s);
-		s.setAdmin(accountServiceImplement.findByLogin(login));
 		
 		System.out.println("OK");
 		return "redirect:/sortie";
