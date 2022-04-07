@@ -70,21 +70,34 @@ public class SortieSimpleController {
 		return "redirect:/sortie";
 	}
 	
-	@GetMapping(value = "edit/{id}")
-	public String editSortie(@PathVariable int id, Model m) {
-		Sortie s = sortieService.findById(id);
-		m.addAttribute("sortie", s);
+	@GetMapping(value = "edit/{idEdit}")
+	public String editSortie(@PathVariable int idEdit, Model m2) {
+		Sortie sortieedit = sortieService.findById(idEdit);
+		System.out.println(sortieedit.getAdmin().getNomComplet());
+		String nomDuResponsable = sortieedit.getAdmin().getNomComplet();
+		List<Admin> admins=accountServiceImplement.findAllAdminsList();
+		m2.addAttribute("sortie", sortieedit);
+		m2.addAttribute("admins", admins);		
+		m2.addAttribute("nomduresponsable", nomDuResponsable);
+				
 		return "sortieedit";
 	}
 	@PostMapping("edit/{id}")
-	public String addEditedSortie(@PathVariable int id, @Valid Sortie s, BindingResult result, Model m) {
+	public String addEditedSortie(@RequestParam String nomAdmin, @PathVariable int id, @Valid Sortie s, BindingResult result, Model m2, Pageable pageable) {
 		if (result.hasErrors()){
-			m.addAttribute("sortie", s);
+			m2.addAttribute("sortie", s);
+			m2.addAttribute("sorties", sortieService.findAll(pageable));
+			List<Admin> admins=accountServiceImplement.findAllAdminsList();
+			m2.addAttribute("admins", admins);
 			return "sortieedit";
 		}
 		s.setId(id);
+		Admin admin=accountServiceImplement.findByNomComplet(nomAdmin);
+		s.setAdmin(admin);
 		sortieService.save(s);	
 		return "redirect:/sortie";
 	}
 
 }
+
+
