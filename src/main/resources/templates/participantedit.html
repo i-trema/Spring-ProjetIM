@@ -46,39 +46,10 @@
     <div class="col-0.2"> 
     </div>
    
-    <div class="col">
     
-    <h3 align="center" >Liste des participants</h3>
-    
-    <table class="table table-bordered">
-      <thead>
-      <tr><th><a href="?sort=id">id</a></th><th><a href="?sort=nom">nom</a></th><th><a href="?sort=prenom">prenom</a></th><th><a href="?sort=email">email</a></th><th><a href="?sort=telephone">téléphone</a></th><th><a href="?sort=age">âge</a></th><th><a href="?sort=sortie">sortie</a></th><th></th><th></th></tr>
-      </thead>
-      <tbody>
-      <tr th:each = "participant : ${participants}">
-      	<td th:text="${participant.id}"></td>
-      	<td th:text="${participant.nom}"></td>
-      	<td th:text="${participant.prenom}"></td>
-      	<td th:text="${participant.email}"></td>
-      	<td th:text="${participant.telephone}"></td>
-      	<td th:text="${participant.age}"></td>
-      	<td th:text="${participant.sortie.titre}"></td>
-      	
-      	
-      	<td> <a class="btn btn-outline-danger" th:href="@{/participant/delete/{id}(id=${participant.id})}">Supprimer</a></td>
-      	<td> <a class="btn btn-outline-warning" th:href="@{/participant/edit/{id}(id=${participant.id})}">Modifier</a></td>
-      	
-      	</tr>
-      </tbody>
-      
-      
-      
-      </table>
- 
-    </div>
      <div class="col">
      
-     <form th:action="@{/participant/add}" th:object="${participant}" method="post">
+     <form th:action="@{/participant/edit/{id}(id=${participant.id})}" th:object="${participant}" method="post">
       
       <div class="input-group mb-3">
       	<span class="input-group-text">nom</span>

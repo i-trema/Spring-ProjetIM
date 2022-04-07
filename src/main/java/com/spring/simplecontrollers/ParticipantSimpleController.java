@@ -67,18 +67,27 @@ public class ParticipantSimpleController {
 	
 	@GetMapping(value = "edit/{id}")
 	public String editParticipant(@PathVariable int id, Model m) {
-		Participant s = participantService.findById(id).get();
-		m.addAttribute("participant", s);
+		Participant p = participantService.findById(id).get();
+		String nomSortie = p.getSortie().getTitre();
+		List<Sortie> sorties = sortieService.findAll();
+		m.addAttribute("participant", p);
+		m.addAttribute("sorties", sorties);
+		m.addAttribute("nomSortie", nomSortie);
+		
+
 		return "participantedit";
 	}
 	@PostMapping("edit/{id}")
-	public String addEditedParticipant(@PathVariable int id, @Valid Participant s, BindingResult result, Model m) {
+	public String addEditedParticipant(@RequestParam String nomSortie, @PathVariable int id, @Valid Participant p, BindingResult result, Model m, Pageable pageable) {
 		if (result.hasErrors()){
-			m.addAttribute("participant", s);
+			m.addAttribute("participant", p);
+			m.addAttribute("participants", participantService.findAll(pageable));
+			List<Sortie> sorties = sortieService.findAll();
+			m.addAttribute("sorties", sorties);
 			return "participantedit";
 		}
-		s.setId(id);
-		participantService.save(s);	
+		p.setId(id);
+		participantService.save(p);	
 		return "redirect:/participant";
 	}
 
