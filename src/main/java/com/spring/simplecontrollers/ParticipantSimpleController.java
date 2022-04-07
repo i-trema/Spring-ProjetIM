@@ -1,5 +1,7 @@
 package com.spring.simplecontrollers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.entities.Participant;
+import com.spring.entities.Sortie;
 import com.spring.services.ParticipantService;
 import com.spring.services.SortieService;
 
@@ -30,25 +34,28 @@ public class ParticipantSimpleController {
 	@GetMapping("")
 	public String getParticipants(Model m, Pageable pageable) {
 		Participant p = new Participant();
+		List<Sortie> sorties = sortieService.findAll();
+		m.addAttribute("sorties", sorties);
 		m.addAttribute("participants", participantService.findAll(pageable));
 		m.addAttribute("participant", p); 
-		
+		int idSortie = 0;
+		m.addAttribute("idSortie", idSortie);
 		return "participant";
 	}
 	
-	@PostMapping("add/{sortie}")
-	public String addParticipant(@PathVariable int sortie, @Valid @RequestBody @ModelAttribute(name = "participant") Participant p, BindingResult result, Model m, Pageable pageable) {
-		System.out.println(sortie);
+	@PostMapping("add")
+	public String addParticipant(@RequestParam int idSortie, @Valid @RequestBody @ModelAttribute(name = "participant") Participant p, BindingResult result, Model m, Pageable pageable) {
+	
 		if (result.hasErrors()){
 			m.addAttribute("participants", participantService.findAll(pageable));
-
+			List<Sortie> sorties = sortieService.findAll();
+			m.addAttribute("sorties", sorties);
 			return "participant";
 		}
-		
-		System.out.println(sortie);
+		Sortie sortie=sortieService.findById(idSortie);
+		p.setSortie(sortie);
 		participantService.save(p);
-		p.setSortie(sortieService.findById(sortie));
-		
+
 		return "redirect:/participant";
 	}		
 	
