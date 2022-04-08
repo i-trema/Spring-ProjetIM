@@ -33,6 +33,9 @@
   <li class="nav-item">
     <a class="btn btn-outline-success" href="/./login">Changer d'utilisateur</a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="/./admin">Gestion des admins</a>
+  </li>
  
 </ul>
 
@@ -62,7 +65,7 @@
       	<td th:utext="${admin.rolesListe}"></td>
 
       	<td> <a class="btn btn-outline-danger" th:href="@{/admin/delete/{login}(login=${admin.login})}">Supprimer</a></td>
-<!--       	<td> <a class="btn btn-outline-warning" th:href="@{/admin/edit/{login}(login=${admin.login})}">Modifier</a></td> -->
+      	<td> <a class="btn btn-outline-warning" th:href="@{/admin/edit/{login}(login=${admin.login})}">Modifier</a></td>
       	<!-- Button trigger modal -->
 		<td><a class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop" th:href="@{/admin/edit/{login}(login=${admin.login})}">.</a></td>
       	
