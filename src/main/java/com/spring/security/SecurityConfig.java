@@ -40,11 +40,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception { 
+		
 		http.formLogin();
 		http.csrf().disable();
 		http.authorizeRequests().antMatchers("/login/**").permitAll();
 		http.authorizeRequests().antMatchers("/").permitAll();
-		
 		
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/recommandation/**").permitAll();
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/sortie/**").permitAll();
@@ -53,8 +53,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/sortie/**").permitAll();
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/evaluation/**").permitAll();
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/evaluation/**").permitAll();
-		
-		
 		
 		http.authorizeRequests().antMatchers("/api/recommandation/**").hasRole("guide");
 		http.authorizeRequests().antMatchers("/recommandation/**").hasRole("guide");
@@ -67,9 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http.authorizeRequests().antMatchers("/api/evaluation/**").hasRole("organisateur");
 		http.authorizeRequests().antMatchers("/evaluation/**").hasRole("organisateur");
+		http.authorizeRequests().antMatchers("/evaluation/**").hasRole("organisateur");
 		
-		http.authorizeRequests().antMatchers("/api/participant/**").hasRole("organisateur");
-		http.authorizeRequests().antMatchers("/participant/**").hasRole("organisateur");
 		
 		
 		
