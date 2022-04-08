@@ -51,6 +51,7 @@ public class AccountServiceImplement implements AccountService{
 		Role role=roleRepo.findByRoleName(roleName);
 		Admin admin=adminRepo.findByLogin(login);
 		admin.getRoles().add(role);
+		
 	}
 
 	@Override
@@ -98,6 +99,22 @@ public class AccountServiceImplement implements AccountService{
 	public List<Admin> findAllAdminsList() {
 		// TODO Auto-generated method stub
 		return adminRepo.findAll();
+	}
+
+	public List<Role> findAllRoles() {
+		// TODO Auto-generated method stub
+		return roleRepo.findAll();
+	}
+
+	public List<Admin> findAllAdmins() {
+		// TODO Auto-generated method stub
+		return adminRepo.findAll();
+	}
+
+	public void deleteById(String login) {
+		adminRepo.deleteById(login);
+		// TODO Auto-generated method stub
+		
 	}
 
 	

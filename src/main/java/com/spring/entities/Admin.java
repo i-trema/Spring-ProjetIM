@@ -33,11 +33,24 @@ public class Admin implements Serializable{
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Role> roles = new ArrayList<>();
 	
+	static String rolesListe = "";
 	
 	
 	
 	
 	
+	
+	
+	
+	public String getRolesListe() {
+		rolesListe = "";
+		for(Role r: roles)
+			rolesListe+=" "+r.getRoleName();
+		return rolesListe;
+	}
+	public void setRolesListe(String rolesListe) {
+		Admin.rolesListe = rolesListe;
+	}
 	public Admin(int active, @NotBlank String password, @NotBlank @Size(min = 4, max = 50) String nomComplet,
 			@NotBlank String adresse, @NotBlank String telephone, List<Role> roles) {
 		super();

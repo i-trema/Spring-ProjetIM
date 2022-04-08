@@ -1,5 +1,7 @@
 package com.spring.services;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,6 +16,7 @@ public interface AccountService {
  public Admin findByNomComplet(String nomComplet);
  public Role findByRoleName(String roleName);
  public Page<Role> findAllRoles(Pageable pageable);
+ public List<Role> findAllRoles();
  public Page<Admin> findAllAdmins(Pageable pageable);
  public void deleteRole(String roleName);
  public void deleteAdmin(String login);
